@@ -1,0 +1,2 @@
+out/linux_amd64/istio-cni opt/cni/bin/
+out/linux_amd64/istio-iptables opt/cni/bin/

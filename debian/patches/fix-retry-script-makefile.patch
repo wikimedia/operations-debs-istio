@@ -1,0 +1,28 @@
+# The retry.sh script plays with exec and fds in a way that
+# our Debian build process doesn't like, leading to permission
+# denied etc.. Since the script is not needed, this patch removes
+# it from the related Makefile.
+#
+Index: istio/Makefile.core.mk
+===================================================================
+--- istio.orig/Makefile.core.mk
++++ istio/Makefile.core.mk
+@@ -90,7 +90,7 @@ endif
+ 
+ export ARTIFACTS ?= $(ISTIO_OUT)
+ export JUNIT_OUT ?= $(ARTIFACTS)/junit.xml
+-export REPO_ROOT := $(shell git rev-parse --show-toplevel)
++export REPO_ROOT := $(shell pwd)
+ 
+ # Make directories needed by the build system
+ $(shell mkdir -p $(ISTIO_OUT_LINUX))
+@@ -224,8 +224,7 @@ init: $(ISTIO_OUT)/istio_is_init
+ # lock file, but it caused the rule for that file to get run (which
+ # seems to be about obtaining a new version of the 3rd party libraries).
+ $(ISTIO_OUT)/istio_is_init: bin/init.sh istio.deps | $(ISTIO_OUT)
+-	@# Add a retry, as occasionally we see transient connection failures to GCS
+-	ISTIO_OUT=$(ISTIO_OUT) ISTIO_BIN=$(ISTIO_BIN) GOOS_LOCAL=$(GOOS_LOCAL) bin/retry.sh SSL bin/init.sh
++	ISTIO_OUT=$(ISTIO_OUT) ISTIO_BIN=$(ISTIO_BIN) GOOS_LOCAL=$(GOOS_LOCAL) bin/init.sh
+ 	touch $(ISTIO_OUT)/istio_is_init
+ 
+ # init.sh downloads envoy and webassembly plugins

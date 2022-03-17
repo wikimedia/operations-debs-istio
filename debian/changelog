@@ -1,0 +1,5 @@
+istio (1.9.5-1) wikimedia-bullseye; urgency=medium
+
+  * Initial version, only istio-cni binaries built and packaged.
+
+ -- Luca Toscano <ltoscano@wikimedia.org>  Tue, 17 Mar 2022 18:43:40 +0100

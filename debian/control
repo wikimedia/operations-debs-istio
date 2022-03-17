@@ -1,0 +1,18 @@
+Source: istio
+Section: net
+Priority: optional
+Maintainer: Luca Toscano <ltoscano@wikimedia.org>
+Build-Depends: debhelper-compat (= 12), curl, ca-certificates, git, go-bindata, golang-go
+Standards-Version: 4.5.0
+Homepage: https://istio.io/
+
+Package: istio-cni
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Istio CNI binaries (istio-cni, istio-iptables)
+ Istio extends Kubernetes to establish a programmable, application-aware
+ network using the powerful Envoy service proxy.
+ .
+ This package includes CNI binaries needed to inject iptables NAT traffic
+ rules when pods are created.
+
